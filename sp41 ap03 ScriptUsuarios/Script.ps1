@@ -3,15 +3,17 @@
 # Obtener ruta base del script, compatible con ISE y ejecución directa
 if ($PSScriptRoot) {
     $basePath = $PSScriptRoot
-} elseif ($PSCommandPath) {
+}
+elseif ($PSCommandPath) {
     $basePath = Split-Path -Path $PSCommandPath -Parent
-} else {
+}
+else {
     $basePath = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
 }
 
 # Rutas relativas a la carpeta CSV
-$paisesPath = Join-Path $basePath "CSV\paises.csv"
-$usuariosPath = Join-Path $basePath "CSV\Usuarios.csv"
+$paisesPath = Join-Path $basePath "paises.csv"
+$usuariosPath = Join-Path $basePath "Usuarios.csv"
 
 # Variable global para el diccionario de países
 $global:DiccionarioPaises = @{}
@@ -42,7 +44,8 @@ function Obtener-CodigoISO2 {
     $clave = $nombrePais.Trim().ToLower()
     if ($global:DiccionarioPaises.ContainsKey($clave)) {
         return $global:DiccionarioPaises[$clave]
-    } else {
+    }
+    else {
         Write-Host "No se encontró el código ISO para el país: $nombrePais"
         return ""
     }
@@ -57,7 +60,8 @@ function Agregar-UO {
     if (-not (Get-ADOrganizationalUnit -Filter "Name -eq '$ouNombre'" -ErrorAction SilentlyContinue)) {
         New-ADOrganizationalUnit -Name $ouNombre -Path $dominio
         Write-Host "Unidad Organizativa '$ouNombre' creada correctamente."
-    } else {
+    }
+    else {
         Write-Host "La UO '$ouNombre' ya existe."
     }
 }
@@ -100,7 +104,8 @@ function Agregar-Usuario {
                 -Path $global:ouPath
 
             Write-Host "Usuario '$usuario' creado correctamente."
-        } else {
+        }
+        else {
             Write-Host "El usuario '$usuario' ya existe."
         }
 
@@ -139,13 +144,14 @@ function Cargar-Desde-CSV {
 
         if ($usuario -and $contrasena -and $nombre -and $apellidos -and $grupo) {
             Agregar-Usuario -usuario $usuario `
-                            -contrasenaTexto $contrasena `
-                            -nombre $nombre `
-                            -apellidos $apellidos `
-                            -email $email `
-                            -pais $pais `
-                            -grupo $grupo
-        } else {
+                -contrasenaTexto $contrasena `
+                -nombre $nombre `
+                -apellidos $apellidos `
+                -email $email `
+                -pais $pais `
+                -grupo $grupo
+        }
+        else {
             Write-Host "Fila incompleta o inválida: $($linea | Out-String)"
         }
     }
