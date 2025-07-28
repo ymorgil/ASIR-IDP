@@ -1,4 +1,4 @@
-# Implantación de Sistemas Operativos (IDP) - ASIR
+# Implantación de Sistemas Operativos (IDP) - ASIR sistemas
 
 Bienvenido al repositorio del módulo de **Implantación de Sistemas Operativos (IDP)** del ciclo formativo de **Administración de Sistemas Informáticos en Red (ASIR)**.
 
